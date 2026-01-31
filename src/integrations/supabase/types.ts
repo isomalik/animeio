@@ -14,16 +14,460 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      character_seeds: {
+        Row: {
+          abilities: string[] | null
+          appearance: string | null
+          backstory: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          name: string
+          personality: string[] | null
+          project_id: string
+          reference_image_url: string | null
+          role: string
+          style_dna: Json
+          updated_at: string
+        }
+        Insert: {
+          abilities?: string[] | null
+          appearance?: string | null
+          backstory?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          name: string
+          personality?: string[] | null
+          project_id: string
+          reference_image_url?: string | null
+          role?: string
+          style_dna?: Json
+          updated_at?: string
+        }
+        Update: {
+          abilities?: string[] | null
+          appearance?: string | null
+          backstory?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          name?: string
+          personality?: string[] | null
+          project_id?: string
+          reference_image_url?: string | null
+          role?: string
+          style_dna?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "character_seeds_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      director_choices: {
+        Row: {
+          choice_type: string
+          created_at: string
+          id: string
+          metadata: Json | null
+          panel_id: string | null
+          project_id: string
+          selected_at: string | null
+          selected_by: string | null
+          selected_index: number | null
+          variations: Json
+        }
+        Insert: {
+          choice_type?: string
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          panel_id?: string | null
+          project_id: string
+          selected_at?: string | null
+          selected_by?: string | null
+          selected_index?: number | null
+          variations?: Json
+        }
+        Update: {
+          choice_type?: string
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          panel_id?: string | null
+          project_id?: string
+          selected_at?: string | null
+          selected_by?: string | null
+          selected_index?: number | null
+          variations?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "director_choices_panel_id_fkey"
+            columns: ["panel_id"]
+            isOneToOne: false
+            referencedRelation: "manga_panels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "director_choices_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      funding_transactions: {
+        Row: {
+          amount: number
+          created_at: string
+          credits_received: number
+          id: string
+          metadata: Json | null
+          price_at_purchase: number
+          project_id: string
+          transaction_type: string
+          user_id: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          credits_received?: number
+          id?: string
+          metadata?: Json | null
+          price_at_purchase: number
+          project_id: string
+          transaction_type?: string
+          user_id?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          credits_received?: number
+          id?: string
+          metadata?: Json | null
+          price_at_purchase?: number
+          project_id?: string
+          transaction_type?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "funding_transactions_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      manga_panels: {
+        Row: {
+          chapter_number: number
+          created_at: string
+          created_by: string | null
+          description: string | null
+          dialogue: string | null
+          id: string
+          image_url: string | null
+          is_keyframe: boolean
+          page_number: number
+          panel_position: number
+          project_id: string
+          prompt_data: Json
+          updated_at: string
+        }
+        Insert: {
+          chapter_number?: number
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          dialogue?: string | null
+          id?: string
+          image_url?: string | null
+          is_keyframe?: boolean
+          page_number?: number
+          panel_position?: number
+          project_id: string
+          prompt_data?: Json
+          updated_at?: string
+        }
+        Update: {
+          chapter_number?: number
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          dialogue?: string | null
+          id?: string
+          image_url?: string | null
+          is_keyframe?: boolean
+          page_number?: number
+          panel_position?: number
+          project_id?: string
+          prompt_data?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "manga_panels_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          display_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      project_rights: {
+        Row: {
+          acquired_at: string
+          holder_id: string | null
+          id: string
+          is_tradeable: boolean
+          metadata: Json | null
+          percentage: number
+          price_paid: number | null
+          project_id: string
+          rights_type: string
+        }
+        Insert: {
+          acquired_at?: string
+          holder_id?: string | null
+          id?: string
+          is_tradeable?: boolean
+          metadata?: Json | null
+          percentage?: number
+          price_paid?: number | null
+          project_id: string
+          rights_type?: string
+        }
+        Update: {
+          acquired_at?: string
+          holder_id?: string | null
+          id?: string
+          is_tradeable?: boolean
+          metadata?: Json | null
+          percentage?: number
+          price_paid?: number | null
+          project_id?: string
+          rights_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_rights_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      projects: {
+        Row: {
+          bonding_curve_price: number
+          cover_image_url: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          funding_current: number
+          funding_goal: number
+          funding_percentage: number | null
+          funding_tier: Database["public"]["Enums"]["funding_tier"]
+          genre: string | null
+          id: string
+          name: string
+          status: Database["public"]["Enums"]["project_status"]
+          story_bible: Json | null
+          updated_at: string
+        }
+        Insert: {
+          bonding_curve_price?: number
+          cover_image_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          funding_current?: number
+          funding_goal?: number
+          funding_percentage?: number | null
+          funding_tier?: Database["public"]["Enums"]["funding_tier"]
+          genre?: string | null
+          id?: string
+          name: string
+          status?: Database["public"]["Enums"]["project_status"]
+          story_bible?: Json | null
+          updated_at?: string
+        }
+        Update: {
+          bonding_curve_price?: number
+          cover_image_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          funding_current?: number
+          funding_goal?: number
+          funding_percentage?: number | null
+          funding_tier?: Database["public"]["Enums"]["funding_tier"]
+          genre?: string | null
+          id?: string
+          name?: string
+          status?: Database["public"]["Enums"]["project_status"]
+          story_bible?: Json | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      provenance_logs: {
+        Row: {
+          action: string
+          created_at: string
+          details: Json
+          entity_id: string
+          entity_type: string
+          id: string
+          project_id: string | null
+          prompt_hash: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          details?: Json
+          entity_id: string
+          entity_type: string
+          id?: string
+          project_id?: string | null
+          prompt_hash?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          details?: Json
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          project_id?: string | null
+          prompt_hash?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "provenance_logs_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      style_library: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          name: string
+          preview_url: string | null
+          tags: string[]
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          preview_url?: string | null
+          tags?: string[]
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          preview_url?: string | null
+          tags?: string[]
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_project_owner: { Args: { _project_id: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "creator" | "patron"
+      funding_tier: "seed" | "hype" | "production" | "premiere"
+      project_status:
+        | "draft"
+        | "pilot"
+        | "funding"
+        | "funded"
+        | "production"
+        | "completed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +594,17 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "creator", "patron"],
+      funding_tier: ["seed", "hype", "production", "premiere"],
+      project_status: [
+        "draft",
+        "pilot",
+        "funding",
+        "funded",
+        "production",
+        "completed",
+      ],
+    },
   },
 } as const
