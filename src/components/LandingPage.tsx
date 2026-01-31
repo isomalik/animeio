@@ -1,36 +1,50 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Sparkles, Play, ArrowRight, Zap, Palette, Film, Mic } from "lucide-react";
+import { Sparkles, Play, ArrowRight, Zap, Palette, Film, Mic, TrendingUp, Shield, Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import heroBg from "@/assets/hero-bg.jpg";
+import { useAuth } from "@/contexts/AuthContext";
 
 export function LandingPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const features = [
     {
       icon: Sparkles,
-      title: "AI Story Creation",
-      description: "Chat with our AI co-creator to build rich worlds, compelling plots, and memorable characters.",
+      title: "Director's Chair",
+      description: "AI presents 4 variations—you make the creative call. Human-in-the-loop ensures copyrightable work.",
       color: "primary",
     },
     {
       icon: Palette,
-      title: "Character Design",
-      description: "Generate stunning anime-style character art with simple text prompts. Iterate until perfect.",
+      title: "Character Seeds",
+      description: "Create Style DNA for visual consistency. Inject it into every panel for perfect character fidelity.",
       color: "secondary",
     },
     {
       icon: Film,
-      title: "Manga to Anime",
-      description: "Transform your story into manga panels, then animate key scenes into watchable clips.",
+      title: "Manga Keyframes",
+      description: "Build high-quality panels first. They become the ground truth for your animation engine.",
       color: "accent",
     },
     {
-      icon: Mic,
-      title: "Voice & Sound",
-      description: "Add AI-generated voices, background music, and sound effects to bring your anime to life.",
+      icon: TrendingUp,
+      title: "Bonding Curve",
+      description: "Launch as a Manga Pilot. Community funds move your project up the curve to full production.",
       color: "primary",
+    },
+    {
+      icon: Shield,
+      title: "Provenance Deed",
+      description: "Every prompt, edit, and choice is logged. Prove human authorship for streaming distribution.",
+      color: "secondary",
+    },
+    {
+      icon: Users,
+      title: "Rights Marketplace",
+      description: "Trade Executive Producer rights. Automated IP licensing for every sale.",
+      color: "accent",
     },
   ];
 
@@ -55,44 +69,58 @@ export function LandingPage() {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-8">
               <Zap className="w-4 h-4 text-primary" />
               <span className="text-sm font-medium text-primary">
-                AI-Powered Anime Creation
+                The Decentralized Anime Studio
               </span>
             </div>
 
             {/* Main Heading */}
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-6 leading-tight">
-              <span className="text-foreground">Create Your Own</span>
+              <span className="text-foreground">Direct Your</span>
               <br />
-              <span className="text-gradient-sunset">Anime</span>
+              <span className="text-gradient-sunset">Anime Empire</span>
             </h1>
 
             {/* Subheading */}
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-10">
-              From idea to animation. No experience needed.
+              Create, fund, and trade anime.
               <br />
-              Just your imagination.
+              Human-directed. Community-powered.
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button
-                variant="hero"
-                size="xl"
-                onClick={() => navigate("/create")}
-                className="group"
-              >
-                <Sparkles className="w-5 h-5" />
-                Start Creating
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button
-                variant="heroOutline"
-                size="xl"
-                className="group"
-              >
-                <Play className="w-5 h-5" />
-                Watch Demo
-              </Button>
+              {user ? (
+                <Button
+                  variant="hero"
+                  size="xl"
+                  onClick={() => navigate("/dashboard")}
+                  className="group"
+                >
+                  <Sparkles className="w-5 h-5" />
+                  Enter Studio
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    variant="hero"
+                    size="xl"
+                    onClick={() => navigate("/auth")}
+                    className="group"
+                  >
+                    <Sparkles className="w-5 h-5" />
+                    Start Creating
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                  <Button
+                    variant="heroOutline"
+                    size="xl"
+                    onClick={() => navigate("/auth")}
+                  >
+                    Sign In
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
