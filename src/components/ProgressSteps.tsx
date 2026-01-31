@@ -1,12 +1,23 @@
 import { CREATION_STEPS } from "@/types/anime";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 interface ProgressStepsProps {
   currentStep: string;
   onStepClick?: (stepId: string) => void;
 }
 
+const STEP_ROUTES: Record<string, string> = {
+  story: "/create",
+  characters: "/characters",
+  manga: "/manga",
+  animation: "/animation",
+  audio: "/audio",
+  publish: "/publish",
+};
+
 export function ProgressSteps({ currentStep, onStepClick }: ProgressStepsProps) {
+  const navigate = useNavigate();
   const currentIndex = CREATION_STEPS.findIndex((s) => s.id === currentStep);
 
   return (
@@ -19,7 +30,11 @@ export function ProgressSteps({ currentStep, onStepClick }: ProgressStepsProps) 
         return (
           <div key={step.id} className="flex items-center">
             <button
-              onClick={() => onStepClick?.(step.id)}
+              onClick={() => {
+                onStepClick?.(step.id);
+                const route = STEP_ROUTES[step.id];
+                if (route) navigate(route);
+              }}
               className={cn(
                 "flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300",
                 isActive && "bg-primary/20 shadow-glow-pink",
