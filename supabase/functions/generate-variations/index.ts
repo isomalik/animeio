@@ -28,8 +28,8 @@ serve(async (req) => {
     );
 
     const token = authHeader.replace("Bearer ", "");
-    const { data, error: authError } = await supabase.auth.getClaims(token);
-    if (authError || !data?.claims) {
+    const { data: authData, error: authError } = await supabase.auth.getClaims(token);
+    if (authError || !authData?.claims) {
       return new Response(
         JSON.stringify({ error: "Unauthorized" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -100,8 +100,8 @@ Generate 4 distinct visual variations for this panel.`;
       throw new Error(`AI gateway error: ${response.status}`);
     }
 
-    const data = await response.json();
-    const content = data.choices?.[0]?.message?.content;
+    const aiResponse = await response.json();
+    const content = aiResponse.choices?.[0]?.message?.content;
     
     if (!content) {
       throw new Error("No content in AI response");
